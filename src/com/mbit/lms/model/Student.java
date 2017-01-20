@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "STUDENT")
 public class Student {
 
 	@Id
@@ -12,9 +13,11 @@ public class Student {
 	private String firstName;
 	private String lastName;
 	private int age;
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToMany
+	@JoinTable(name="STUDENT_COURSE",
+    joinColumns = @JoinColumn(name="STUDENT_ID", referencedColumnName="id"),
+    inverseJoinColumns = @JoinColumn(name="COURSE_ID", referencedColumnName="id"))
 	private List<Course> courses;
-	
 	public int getId() {
 		return id;
 	}
@@ -45,7 +48,7 @@ public class Student {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-	
+
 	
 
 }
