@@ -7,11 +7,13 @@ import javax.persistence.*;
 @Entity
 @Table(name="TRAINER")
 public class Trainer {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String firstName;
 	private String lastName;
+	
 	@OneToMany(mappedBy = "trainer")
 	private List<Course> courses;
 	

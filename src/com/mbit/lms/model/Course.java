@@ -1,6 +1,7 @@
 package com.mbit.lms.model;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -21,8 +22,10 @@ public class Course {
 	@ManyToOne
 	@JoinColumn(name = "TRAINER_ID")
 	private Trainer trainer;
-		
+	
+	@Temporal(TemporalType.DATE)
 	private Date startDate;
+	@Temporal(TemporalType.DATE)
 	private Date endDate;
 	
 	@OneToOne
