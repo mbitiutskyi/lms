@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "STUDENT")
-public class Student {
+public class Student{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +15,21 @@ public class Student {
 	private int age;
 	@ManyToMany
 	@JoinTable(name="STUDENT_COURSE",
-    joinColumns = @JoinColumn(name="STUDENT_ID", referencedColumnName="id"),
-    inverseJoinColumns = @JoinColumn(name="COURSE_ID", referencedColumnName="id"))
+    		joinColumns = @JoinColumn(name="STUDENT_ID", referencedColumnName="id"),
+    		inverseJoinColumns = @JoinColumn(name="COURSE_ID", referencedColumnName="id"))
 	private List<Course> courses;
+	@Transient
+	private boolean isEditable;
+	
+	public Student(){
+	}
+	
+	public Student(String firstName, String lastName, int age) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -48,7 +60,16 @@ public class Student {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
+	public boolean isEditable() {
+		return isEditable;
+	}
+	public void setEditable(boolean isEditable) {
+		this.isEditable = isEditable;
+	}
 
-	
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + "]";
+	}
 
 }

@@ -3,13 +3,84 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
-<h:head/>
+<h:head />
 <h:body>
 	<ui:composition template="templates/template.xhtml">
 		<ui:define name="title">Students</ui:define>
 		<ui:define name="content">
-			<h4>This is a students' page</h4>
-			<p>The list of students will be available here</p>
+			<h3>This is a students' page</h3>
+			<h:form id="studentsForm">
+				<h:dataTable id="table" value="#{studentController.students}"
+					var="student">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{student.id}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="First Name" />
+						</f:facet>
+						<h:inputText value="#{student.firstName}"
+							rendered="#{student.editable}" />
+						<h:outputText value="#{student.firstName}"
+							rendered="#{not student.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Last Name" />
+						</f:facet>
+						<h:inputText value="#{student.lastName}"
+							rendered="#{student.editable}" />
+						<h:outputText value="#{student.lastName}"
+							rendered="#{not student.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Age" />
+						</f:facet>
+						<h:inputText value="#{student.age}" rendered="#{student.editable}" />
+						<h:outputText value="#{student.age}"
+							rendered="#{not student.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Action</f:facet>
+						<h:commandButton value="Delete"
+							action="#{studentController.removeStudent(student)}"
+							onclick="return confirm('Are you sure?')">
+							<!-- f:ajax render="studentsForm:table" /-->
+						</h:commandButton>
+						<h:commandButton value="Edit"
+							action="#{studentController.editStudent(student)}" />
+					</h:column>
+				</h:dataTable>
+			</h:form>
+			<h4>Add student:</h4>
+			<table><h:form>
+				<tr>
+					<td>First Name</td>
+					<td><h:inputText size="20"
+							value="#{studentController.firstName}" /></td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+					<td><h:inputText size="20"
+							value="#{studentController.lastName}" /></td>
+				</tr>
+				<tr>
+					<td>Age</td>
+					<td><h:inputText size="3" value="#{studentController.age}" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><h:commandButton
+							action="#{studentController.addStudent()}" value="Add student">
+							<!-- f:ajax execute="studentsForm" render="studentsForm:table" /-->
+						</h:commandButton></td>
+				</tr></h:form>
+			</table>
+
 		</ui:define>
 	</ui:composition>
 </h:body>
