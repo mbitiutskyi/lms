@@ -13,6 +13,7 @@ public class Trainer {
 	private int id;
 	private String firstName;
 	private String lastName;
+	private String email;
 	
 	@OneToMany(mappedBy = "trainer")
 	private List<Course> courses;
@@ -39,6 +40,14 @@ public class Trainer {
 	
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<Course> getCourses() {

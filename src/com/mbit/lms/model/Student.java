@@ -13,6 +13,7 @@ public class Student{
 	private String firstName;
 	private String lastName;
 	private int age;
+	private String email;
 	@ManyToMany
 	@JoinTable(name="STUDENT_COURSE",
     		joinColumns = @JoinColumn(name="STUDENT_ID", referencedColumnName="id"),
@@ -24,10 +25,11 @@ public class Student{
 	public Student(){
 	}
 	
-	public Student(String firstName, String lastName, int age) {
+	public Student(String firstName, String lastName, int age, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
+		this.email = email;
 	}
 
 	public int getId() {
@@ -54,6 +56,14 @@ public class Student{
 	public void setAge(int age) {
 		this.age = age;
 	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public List<Course> getCourses() {
 		return courses;
 	}
